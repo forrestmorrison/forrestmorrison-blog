@@ -17,5 +17,7 @@ const UsersList = () => {
 
             <ul>{renderedUsers}</ul>
         </section>
-    )
+    ) 
 }
+
+export default UsersList
