@@ -20,6 +20,16 @@ export const addNewPost = createAsyncThunk('posts/addNewPost', async (initialPos
     return response.data
 })
 
+export const updatePost = createAsyncThunk('posts/updatePost', async (initialPost) => {
+    const { id } = initialPost;
+    try {
+        const response = await axios.put(`${POSTS_URL}/${id}`, initialPost)
+        return response.data
+    }   catch (err) {
+        return err.message;
+    }
+})
+
 const postsSlice = createSlice({
     name: 'posts',
     initialState,
