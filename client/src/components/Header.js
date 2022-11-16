@@ -4,6 +4,7 @@ import { increaseCount, getCount } from "../features/posts/postsSlice"
 
 const Header = () => {
     const dispatch = useDispatch()
+    const count = useSelector(getCount)
 
     return (
         <header className="Header">
