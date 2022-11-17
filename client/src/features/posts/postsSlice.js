@@ -1,15 +1,19 @@
-import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createSelector, createEntityAdapter } from "@reduxjs/toolkit";
 import { sub } from 'date-fns';
 import axios from "axios";
 
 const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
 
-const initialState = {
+const postsAdapter = createEntityAdapter({
+    sortComparer: (a, b) => b.date.localeCompare(a.date)
+})
+
+const initialState = postsAdapter.getInitialState ({
     posts: [],
     status: 'idle', //'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
     count: 0
-}
+})
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     const response = await axios.get(POSTS_URL)
