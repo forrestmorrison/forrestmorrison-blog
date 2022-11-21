@@ -39,21 +39,18 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
 })
 
 export const {
+    useGetPostsQuery,
+} = extendedApiSlice
+
+export const selectPostsResult = extendedApiSlice.endpoints.getPosts.select()
+
+const selectPostsData = createSelector(
+    selectPostsResult,
+    postsResult => postsResult.data
+)
+
+export const {
     selectAll: selectAllPosts,
     selectById: selectPostById,
     selectIds: selectPostIds
-} = postsAdapter.getSelectors(state => state.posts)
-
-export const getPostsStatus = (state) => state.posts.status;
-export const getPostsError = (state) => state.posts.error;
-export const getCount = (state) => state.posts.count;
-
-
-export const selectPostsByUser = createSelector(
-    [selectAllPosts, (state, userId) => userId],
-    (posts, userId) => posts.filter(post => post.user === userId)
-)
-
-export const { increaseCount, reactionAdded } = postsSlice.actions
-
-export default postsSlice.reducer
+} = postsAdapter.getSelectors(state => selectPostsData(state) ?? initialState)
