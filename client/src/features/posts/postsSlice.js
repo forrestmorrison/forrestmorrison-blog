@@ -21,10 +21,8 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
                     if (!post?.date) post.date = sub(new Date(), { minutes: min++ }).toISOString();
                     if (!post?.reactions) post.reactions = {
                         thumbsUp: 0,
-                        wow: 0,
                         heart: 0,
                         rocket: 0,
-                        coffee: 0
                     }
                     return post;
                 });
@@ -43,10 +41,8 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
                     if (!post?.date) post.date = sub(new Date(), { minutes: min++ }).toISOString();
                     if (!post?.reactions) post.reactions = {
                         thumbsUp: 0,
-                        wow: 0,
                         heart: 0,
                         rocket: 0,
-                        coffee: 0
                     }
                     return post;
                 });
@@ -69,10 +65,8 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
                     date: new Date().toISOString(),
                     reactions: {
                         thumbsUp: 0,
-                        wow: 0,
                         heart: 0,
                         rocket: 0,
-                        coffee: 0
                     }
                 }
             }),
@@ -103,6 +97,26 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
                 { type: 'Post', id: arg.id }
             ]
         })
+    }),
+    addReaction: builder.mutation({
+        query: ({ postId, reactions }) => ({
+            url: `posts/${postId}`,
+            method: 'PATCH',
+            body: { reactions }
+        }),
+        async onQueryStarted({ postId, reactions }, { dispatch, queryFulfilled }) {
+            const patchResult = dispatch(
+                extendedApiSlice.util.updateQueryData('getPosts', undefined, draft => {
+                    const post = draft.entities[postId]
+                    if (post) post.reactions = reactions
+                })
+            )
+            try {
+                await queryFulfilled
+            } catch {
+                patchResult.undo()
+            }
+        }
     })
 })
 
