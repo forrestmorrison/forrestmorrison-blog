@@ -20,7 +20,7 @@ const AddPostForm = () => {
     const onContentChanged = e => setContent(e.target.value)
     const onAuthorChanged = e => setUserId(e.target.value)
 
-    const canSave = [title, content, userId].every(Boolean) && addRequestStatus === 'idle';
+    const canSave = [title, content, userId].every(Boolean) && !isLoading;
 
     const onSavePostClicked = async () => {
         if (canSave) {
@@ -33,9 +33,7 @@ const AddPostForm = () => {
                 navigate('/')
             } catch (err) {
                 console.error('Failed to save the post', err)
-            } finally {
-                setAddRequestStatus('idle')
-            }
+            } 
         }
     }
 
