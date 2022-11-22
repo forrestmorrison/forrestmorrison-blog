@@ -75,8 +75,24 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
                         coffee: 0
                     }
                 }
-            })
-        })
+            }),
+            invalidatesTags: [
+                { type: 'Post', id: "LIST" }
+            ]
+        }),
+        updatePost: builder.mutation({
+            query: initialPost => ({
+                url: `/posts/${initialPost.id}`,
+                method: 'PUT',
+                body: {
+                    ...initialPost,
+                    date: new Date().toISOString()
+                }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                {type: 'Post', id: arg.id }
+            ]
+        }),
     })
 })
 
