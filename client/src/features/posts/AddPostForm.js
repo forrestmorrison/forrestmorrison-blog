@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { addNewPost } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
 import { useNavigate } from "react-router-dom";
+import { useAddNewPostMutation } from "./postsSlice";
 
 const AddPostForm = () => {
-    const dispatch = useDispatch()
+    const [addNewPost, { isLoading }] = useAddNewPostMutation()
 
     const navigate = useNavigate()
 
