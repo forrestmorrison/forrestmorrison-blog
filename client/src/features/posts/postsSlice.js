@@ -88,25 +88,25 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
             ]
         }),
         deletePost: builder.mutation({
-            query: ({ postId }) => ({
-                url: `/posts/${postId}`,
+            query: ({ id }) => ({
+                url: `/posts/${id}`,
                 method: 'DELETE',
-                body: { postId }
+                body: { id }
             }),
             invalidatesTags: (result, error, arg) => [
                 { type: 'Post', id: arg.id }
             ]
         }),
         addReaction: builder.mutation({
-            query: ({ postId, reactions }) => ({
-                url: `posts/${postId}`,
+            query: ({ id, reactions }) => ({
+                url: `posts/${id}`,
                 method: 'PATCH',
                 body: { reactions }
             }),
-            async onQueryStarted({ postId, reactions }, { dispatch, queryFulfilled }) {
+            async onQueryStarted({ id, reactions }, { dispatch, queryFulfilled }) {
                 const patchResult = dispatch(
                     extendedApiSlice.util.updateQueryData('getPosts', undefined, draft => {
-                        const post = draft.entities[postId]
+                        const post = draft.entities[id]
                         if (post) post.reactions = reactions
                     })
                 )
