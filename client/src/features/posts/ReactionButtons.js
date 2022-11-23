@@ -15,7 +15,7 @@ const ReactionButtons = ({ post }) => {
                 key={name}
                 type="button"
                 className="reactionButton"
-                onClick={() =>
+                onClick={() => {
                     const newValue = post.reactions[name] + 1;
                     addReaction({ postId: post.id, reactions: { ...post.reactions, [name]: newValue } })
                 }}
