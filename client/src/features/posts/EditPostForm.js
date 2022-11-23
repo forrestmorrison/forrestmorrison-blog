@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectPostById } from './postsSlice'
-import { useParams, useNavigate, Await } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 import { selectAllUsers } from '../users/usersSlice';
 import { useUpdatePostMutation, useDeletePostMutation } from './postsSlice';

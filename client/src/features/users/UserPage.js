@@ -10,7 +10,6 @@ const UserPage = () => {
     const {
         data: postsForUser,
         isLoading,
-        isSuccess,
         isError,
         error
     } = useGetPostsByUserIdQuery(userId);
