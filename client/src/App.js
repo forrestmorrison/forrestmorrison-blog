@@ -1,8 +1,13 @@
-
+import './App.css';
+import PostsList from './features/posts/PostsList';
+import AddPostForm from './features/posts/AddPostForm';
 
 function App() {
   return (
-    <h1>Forrest's Blog</h1>
+    <main className="App">
+      <AddPostForm />
+      <PostsList />
+    </main>
   );
 }
 
