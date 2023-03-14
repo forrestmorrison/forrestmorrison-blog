@@ -3,7 +3,7 @@
 function App() {
   return (
     <main className="App">
-      Hello
+      Hello App
     </main>
   );
 }
