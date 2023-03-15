@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { FcGoogle } from "react-icons/fc"
-import { auth, provider } from "../firebaseConfig"
+import { auth, provider } from "../firebase-config"
 import { signInWithPopup } from "firebase/auth"
 
 const Login = ({setIsAuth}) => {
