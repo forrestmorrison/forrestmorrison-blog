@@ -1,17 +1,40 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useAuthState } from "react-firebase-hooks/auth"
+import { auth } from '../firebaseConfig'
+import { signOut } from 'firebase/auth'
 
 const NavBar = () => {
-  return (
-    <div className="fixed-top border" style={{ backgroundColor: "whitesmoke" }}>
-        <nav className="nav">
-            <div>
-                <img src="logo192.png" width={30} height={30} alt="logo" />
-            </div>
-            <Link className="nav-link" to="/">Home</Link>
-        </nav>
-    </div>
-  )
+
+    const [user] = useAuthState(auth)
+
+    return (
+        <div className="fixed-top border" style={{ backgroundColor: "whitesmoke" }}>
+            <nav className="navbar">
+                <div>
+                    <img src="logo192.png" width={30} height={30} alt="logo" />
+                </div>
+                <Link className="nav-link" to="/">Home</Link>
+                <div>
+                    {
+                        user && (
+                            <>
+                                <span className="pe-4">
+                                    signed in as { user.displayName || user.email }
+                                </span>
+                                <button 
+                                    className="btn btn-primary btn-sm me-3"
+                                    onClick={() => {signOut(auth)}}
+                                >
+                                    Log Out
+                                </button>
+                            </>
+                        )
+                    }
+                </div>
+            </nav>
+        </div>
+    )
 }
 
 export default NavBar
