@@ -1,6 +1,7 @@
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore"
 import { db } from "../firebaseConfig"
 import { useEffect, useState } from "react"
+import DeleteArticle from "./DeleteArticle"
 
 
 const Articles = () => {
@@ -35,6 +36,7 @@ const Articles = () => {
                                     <h2>{title}</h2>
                                     <p>{createdAt.toDate().toDateString()}</p>
                                     <h6>{description}</h6>
+                                    <DeleteArticle id={id} imageUrl={imageUrl}/>
                                 </div>
                             </div>
                         </div>
