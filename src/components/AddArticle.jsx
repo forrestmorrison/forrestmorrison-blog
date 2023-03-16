@@ -1,7 +1,8 @@
-import { Timestamp } from 'firebase/firestore'
+import { addDoc, collection, Timestamp } from 'firebase/firestore'
 import { useState } from 'react'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
-import { storage } from '../firebaseConfig'
+import { db, storage } from '../firebaseConfig'
+import { toast } from 'react-toastify'
 
 const AddArticle = () => {
     const [formData, setFormData] = useState({
@@ -47,6 +48,22 @@ const AddArticle = () => {
                 })
 
                 getDownloadURL(uploadImage.snapshot.ref)
+                    .then((url) => {
+                        const articleRef = collection(db, "Articles")
+                        addDoc(articleRef, {
+                            title: formData.title,
+                            description: formData.description,
+                            imageUrl: url,
+                            createdAt: Timestamp.now().toDate()
+                        })
+                            .then(() => {
+                                toast("Article added successfully", { type: "success" })
+                                setProgress(0)
+                            })
+                            .catch(err => {
+                                toast("Error adding article", { type: "error" })
+                            })
+                    })
             }
         )
     }
@@ -79,12 +96,13 @@ const AddArticle = () => {
                 className="form-control"
                 onChange={(e) => handleImageChange(e)}
             />
-
-            <div className="progress mt-2">
-                <div className="progress-bar progress-bar-striped" style={{ width: "50%" }}>
-                    50%
+            { progress === 0 ? null : (
+                <div className="progress mt-2">
+                    <div className="progress-bar progress-bar-striped" style={{ width: `${progress}%`}}>
+                        `uploading image ${progress}%`
+                    </div>
                 </div>
-            </div>
+            )}
 
             <button className="form-control btn btn-primary mt-2" onClick={handlePublish}>Publish</button>
         </div>
