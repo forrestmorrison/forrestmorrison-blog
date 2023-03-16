@@ -12,6 +12,24 @@ const Register = () => {
                 placeholder="enter your name"
             />
         </div>
+        <div className="form-group">
+            <label>Email</label>
+            <input
+                type="email"
+                className="form-control"
+                placeholder="enter your email"
+            />
+        </div>
+        <div className="form-group">
+            <label>Password</label>
+            <input
+                type="password"
+                className="form-control"
+                placeholder="password"
+            />
+        </div>
+        <br/>
+        <button className="btn btn-primary">Register</button>
     </div>
   )
 
