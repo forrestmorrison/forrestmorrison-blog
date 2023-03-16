@@ -1,6 +1,7 @@
 import { Timestamp } from 'firebase/firestore'
 import { useState } from 'react'
-import { ref } from 'firebase/storage'
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import { storage } from '../firebaseConfig'
 
 const AddArticle = () => {
     const [formData, setFormData] = useState({
@@ -9,6 +10,8 @@ const AddArticle = () => {
         image: "",
         createdAt: Timestamp.now().toDate()
     })
+
+    const [progress, setProgress] = useState(0)
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -24,7 +27,28 @@ const AddArticle = () => {
             return;
         }
 
-        const storageRef = ref
+        const storageRef = ref(storage, `/imgaes/${Date.now()}${formData.image.name}`)
+
+        const uploadImage = uploadBytesResumable(storageRef, formData.image)
+
+        uploadImage.on("state_changed",
+            (snapshot) => {
+                const progressPercent = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
+            setProgress(progressPercent)
+            },
+            (err) => {
+                console.log(err)
+            },
+            () => {
+                setFormData({
+                    title: "",
+                    description: "",
+                    image: ""
+                })
+
+                getDownloadURL(uploadImage.snapshot.ref)
+            }
+        )
     }
 
     return (
