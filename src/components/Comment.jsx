@@ -76,7 +76,7 @@ const Comment = ({id}) => {
                                             <i 
                                                 className="fa fa-times" 
                                                 style={{ cursor: "pointer"}} 
-                                                onClick={() => handleDeleteComment( commentId, user, comment, userName, createdAt )}
+                                                onClick={() => handleDeleteComment({ commentId, user, comment, userName, createdAt })}
                                             />
                                         )
                                     }
