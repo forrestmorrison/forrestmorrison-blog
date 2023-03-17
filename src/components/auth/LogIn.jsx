@@ -1,20 +1,19 @@
-import { useState } from 'react'
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { toast } from 'react-toastify'
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
+import { toast } from "react-toastify"
+import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../firebaseConfig"
 
-const Register = () => {
-    const [name, setName] = useState("")
+const LogIn = () => {
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     const navigate = useNavigate()
 
-    const handleSignup = async () => {
+    const handleLogin = async () => {
         try {
-            await createUserWithEmailAndPassword(auth, email, password)
-            updateProfile(auth.currentUser, {displayName: name})
+            await signInWithEmailAndPassword(auth, email, password)
             navigate("/")
         } catch (error) {
             toast(error.code, { type: "error" })
@@ -22,17 +21,12 @@ const Register = () => {
     }
 
     return (
-        <div className="boder p-3 bg-light" style={{ marginTop: 70 }}>
-            <h1>Register</h1>
-            <div className="form-group">
-                <label>Name</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    placeholder="enter your name"
-                    onChange={(e) => {setName(e.target.value)}}
-                />
-            </div>
+        
+        <div 
+            className="border p-3 bg-light mx-auto"
+            style={{ maxWidth: 400, marginTop: 60 }}
+        >
+            <h1>Log In</h1>
             <div className="form-group">
                 <label>Email</label>
                 <input
@@ -52,10 +46,9 @@ const Register = () => {
                 />
             </div>
             <br/>
-            <button className="btn btn-primary" onClick={handleSignup}>Register</button>
+            <button className="btn btn-primary" onClick={handleLogin}>Log In</button>
         </div>
-    )
-
+  )
 }
 
-export default Register
+export default LogIn
