@@ -1,8 +1,10 @@
+import { useEffect, useState } from "react"
+import { useAuthState } from "react-firebase-hooks/auth"
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore"
 import { auth, db } from "../firebaseConfig"
-import { useEffect, useState } from "react"
 import DeleteArticle from "./DeleteArticle"
-import { useAuthState } from "react-firebase-hooks/auth"
+import LikeArticle from "./LikeArticle"
+
 
 
 const Articles = () => {
@@ -61,6 +63,9 @@ const Articles = () => {
                                     <h3>{title}</h3>
                                     <p>{createdAt.toDate().toDateString()}</p>
                                     <h6>{description}</h6>
+                                    <div className="d-flex flex-row-reverse">
+                                        { user & <LikeArticle id={id} likes={likes} />}
+                                    </div>
                                 </div>
                             </div>
                         </div>
