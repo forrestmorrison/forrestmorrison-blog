@@ -1,10 +1,15 @@
 import { addDoc, collection, Timestamp } from 'firebase/firestore'
 import { useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
-import { db, storage } from '../firebaseConfig'
+import { auth, db, storage } from '../firebaseConfig'
 import { toast } from 'react-toastify'
+import { Link } from 'react-router-dom'
 
 const AddArticle = () => {
+
+    const [user] = useAuthState(auth)
+
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -54,7 +59,11 @@ const AddArticle = () => {
                             title: formData.title,
                             description: formData.description,
                             imageUrl: url,
-                            createdAt: Timestamp.now().toDate()
+                            createdAt: Timestamp.now().toDate(),
+                            createdBy: user.displayName,
+                            userId: user.uid,
+                            likes: [],
+                            comments: []
                         })
                             .then(() => {
                                 toast("Article added successfully", { type: "success" })
@@ -70,41 +79,53 @@ const AddArticle = () => {
 
     return (
         <div className="border p-3 mt-3 bg-light" style={{ position: "fixed" }}>
-            <h2>Create Article</h2>
-            <label htmlFor="">Title</label>
-            <input 
-                type="text" 
-                name="title" 
-                className="form-control" 
-                value={formData.title} 
-                onChange={(e) => handleChange(e)}
-            />
+            {
+                !user ?
+                <>
+                    <h2>
+                        <Link to="/login">Log in to create a blog post</Link>
+                    </h2>
+                    Don't have an account? <Link to="/register">Sign Up</Link>
+                </>
+                :
+                <>
+                    <h2>Create Article</h2>
+                    <label htmlFor="">Title</label>
+                    <input 
+                        type="text" 
+                        name="title" 
+                        className="form-control" 
+                        value={formData.title} 
+                        onChange={(e) => handleChange(e)}
+                    />
 
-            <label htmlFor="">Description</label>
-            <textarea 
-                name="description" 
-                className="form-control" 
-                value={formData.description}
-                onChange={(e) => handleChange(e)}
-            />
+                    <label htmlFor="">Description</label>
+                    <textarea 
+                        name="description" 
+                        className="form-control" 
+                        value={formData.description}
+                        onChange={(e) => handleChange(e)}
+                    />
 
-            <label htmlFor="">Image</label>
-            <input 
-                type="file" 
-                name="image" 
-                accept="image/*" 
-                className="form-control"
-                onChange={(e) => handleImageChange(e)}
-            />
-            { progress === 0 ? null : (
-                <div className="progress mt-2">
-                    <div className="progress-bar progress-bar-striped" style={{ width: `${progress}%`}}>
-                        `uploading image ${progress}%`
-                    </div>
-                </div>
-            )}
+                    <label htmlFor="">Image</label>
+                    <input 
+                        type="file" 
+                        name="image" 
+                        accept="image/*" 
+                        className="form-control"
+                        onChange={(e) => handleImageChange(e)}
+                    />
+                    { progress === 0 ? null : (
+                        <div className="progress mt-2">
+                            <div className="progress-bar progress-bar-striped" style={{ width: `${progress}%`}}>
+                                `uploading image ${progress}%`
+                            </div>
+                        </div>
+                    )}
 
-            <button className="form-control btn btn-primary mt-2" onClick={handlePublish}>Publish</button>
+                    <button className="form-control btn btn-primary mt-2" onClick={handlePublish}>Publish</button>
+                </>
+            }
         </div>
     )
 }

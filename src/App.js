@@ -13,7 +13,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/" element={
-          <div className="row">
+          <div 
+            className="row"
+            style={{ marginTop: 50 }}
+          >
             <div className="col-md-8">
               <Articles />
             </div>
