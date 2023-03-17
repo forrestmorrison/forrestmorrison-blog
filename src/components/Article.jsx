@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { doc, onSnapshot } from 'firebase/firestore'
 import { auth, db } from '../firebaseConfig'
 import LikeArticle from './LikeArticle'
+import Comment from './Comment'
 
 const Article = () => {
 
@@ -11,14 +12,12 @@ const Article = () => {
     const [article, setArticle] = useState(null)
     const [user] = useAuthState(auth)
 
-    useEffect(
-        () => {
-            const docRef = doc(db, "Articles", id)
-            onSnapshot(docRef, (snapshot) => {
-                setArticle({ ...snapshot.data(), id: snapshot.id })
-            })
-        }
-    )
+    useEffect(() => {
+        const docRef = doc(db, "Articles", id)
+        onSnapshot(docRef, (snapshot) => {
+            setArticle({ ...snapshot.data(), id: snapshot.id })
+        })
+    }, [])
 
     return (
         <div className="container border bg-light" style={{ marginTop: 70 }}>
@@ -44,6 +43,7 @@ const Article = () => {
                                     <p>{ article.likes.length }</p>
                                 </div>
                             </div>
+                            <Comment id={article.id}/>
                         </div>
                     </div>
                 )
