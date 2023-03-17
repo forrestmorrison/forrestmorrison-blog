@@ -64,7 +64,7 @@ const Articles = () => {
                                     <p>{createdAt.toDate().toDateString()}</p>
                                     <h6>{description}</h6>
                                     <div className="d-flex flex-row-reverse">
-                                        { user & <LikeArticle id={id} likes={likes} />}
+                                        { user && <LikeArticle id={id} likes={likes} />}
                                     </div>
                                 </div>
                             </div>
