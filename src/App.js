@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom"
 import AddArticle from "./components/AddArticle";
+import Article from "./components/Article";
 import Articles from "./components/Articles";
 import NavBar from "./components/NavBar";
 import LogIn from "./components/auth/LogIn";
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LogIn />} />
+        <Route path="/article/:id" element={<Article />} />
         <Route path="/" element={
           <div 
             className="row"

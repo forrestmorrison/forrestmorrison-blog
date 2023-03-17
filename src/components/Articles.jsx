@@ -4,6 +4,7 @@ import { collection, onSnapshot, orderBy, query } from "firebase/firestore"
 import { auth, db } from "../firebaseConfig"
 import DeleteArticle from "./DeleteArticle"
 import LikeArticle from "./LikeArticle"
+import { Link } from "react-router-dom"
 
 
 
@@ -45,7 +46,13 @@ const Articles = () => {
                         <div className="border mt-3 p-3 bg-light" key={id}>
                             <div className="row">
                                 <div className="col-3">
-                                    <img src={imageUrl} alt="title" style={{ height: 180, width: 180 }}/>
+                                    <Link to={`/article/${id}`}>
+                                        <img 
+                                            src={imageUrl} 
+                                            alt="title" 
+                                            style={{ height: 180, width: 180 }}
+                                        />
+                                    </Link>
                                 </div>
                                 <div className="col-9 ps-3">
                                     <div className="row">
