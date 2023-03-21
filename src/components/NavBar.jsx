@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuthState } from "react-firebase-hooks/auth"
 import { auth } from '../firebaseConfig'
 import { signOut } from 'firebase/auth'
@@ -7,6 +7,12 @@ import { signOut } from 'firebase/auth'
 const NavBar = () => {
 
     const [user] = useAuthState(auth)
+
+    const navigate = useNavigate()
+
+    const onAddArticle = () => {
+        navigate("/add-article")
+    }
 
     return (
         <div className="fixed-top" style={{ backgroundColor: "white" }}>
@@ -32,6 +38,12 @@ const NavBar = () => {
                                 </span>
                                 <button 
                                     className="btn btn-success btn-sm me-3"
+                                    onClick={() => {onAddArticle()}}
+                                >
+                                    Add Article
+                                </button>
+                                <button 
+                                    className="btn btn-danger btn-sm me-3"
                                     onClick={() => {signOut(auth)}}
                                 >
                                     Log Out

@@ -73,7 +73,7 @@ const Articles = () => {
                                     <div className="d-flex flex-row-reverse">
                                         { user && <LikeArticle id={id} likes={likes} />}
                                         <div className="pe-2">
-                                            <p>{likes?.length} likes</p>
+                                            { user && <p>{likes?.length} likes</p> }
                                         </div>
                                         {
                                             comments && comments.length > 0 && (

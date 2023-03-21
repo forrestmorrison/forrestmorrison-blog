@@ -20,7 +20,7 @@ const Article = () => {
     }, [])
 
     return (
-        <div className="container border" style={{ marginTop: 70 }}>
+        <div className="container" style={{ marginTop: 70 }}>
             {
                 article && (
                     <div className="row">
@@ -40,7 +40,7 @@ const Article = () => {
                             <div className="d-flex flex-row-reverse">
                                 { user && <LikeArticle id={id} likes={article.likes} /> }
                                 <div className="pe-2">
-                                    <p>{ article.likes.length }</p>
+                                    <p>{ user && article.likes.length }</p>
                                 </div>
                             </div>
                             <Comment id={article.id}/>

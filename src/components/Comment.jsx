@@ -62,8 +62,8 @@ const Comment = ({id}) => {
                                     <span className=
                                         {`badge ${ 
                                             user === currentlyLoggedinUser.uid
-                                            ? "bg-success"
-                                            : "bg-primary"
+                                            ? "bg-success mx-3"
+                                            : "bg-primary mx-3"
                                         }`}
                                     >
                                         { userName }

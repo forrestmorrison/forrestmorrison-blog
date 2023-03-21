@@ -1,14 +1,16 @@
 import { addDoc, collection, Timestamp } from 'firebase/firestore'
 import { useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import { auth, db, storage } from '../firebaseConfig'
-import { toast } from 'react-toastify'
-import { Link } from 'react-router-dom'
 
 const AddArticle = () => {
 
     const [user] = useAuthState(auth)
+
+    const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
         title: "",
@@ -75,6 +77,8 @@ const AddArticle = () => {
                     })
             }
         )
+
+        navigate("/")
     }
 
     return (
