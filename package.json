@@ -1,5 +1,4 @@
 {
-  "homepage": "http://forrestmorrison.github.io/forrestmorrison-blog",
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -16,7 +15,6 @@
     "date-fns": "^2.29.3",
     "firebase": "^9.17.2",
     "font-awesome": "^4.7.0",
-    "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
@@ -30,8 +28,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
