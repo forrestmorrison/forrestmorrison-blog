@@ -14,17 +14,15 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/article/:id" element={<Article />} />
+        <Route path="/add-article" element={<AddArticle />} />
         <Route path="/" element={
           <div 
             className="row"
             style={{ marginTop: 50 }}
           >
-            <div className="col-md-8">
+            <div className="col-md-12">
               <Articles />
-            </div>
-            <div className="col-md-4">
-              <AddArticle />
-            </div>
+            </div>   
           </div>
         } />
       </Routes>

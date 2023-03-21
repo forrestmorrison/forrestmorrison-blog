@@ -78,7 +78,10 @@ const AddArticle = () => {
     }
 
     return (
-        <div className="border p-3 mt-3 bg-light" style={{ position: "fixed" }}>
+        <div 
+            className="border p-3 mx-auto"
+            style={{ maxWidth: 400, marginTop: 60 }}
+        >
             {
                 !user ?
                 <>

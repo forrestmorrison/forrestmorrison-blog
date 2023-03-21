@@ -43,7 +43,7 @@ const Articles = () => {
                         likes,
                         comments 
                     }) => (
-                        <div className="border mt-3 p-3 bg-light" key={id}>
+                        <div className="mt-3 p-3" key={id}>
                             <div className="row">
                                 <div className="col-3">
                                     <Link to={`/article/${id}`}>
@@ -58,7 +58,7 @@ const Articles = () => {
                                     <div className="row">
                                         <div className="col-6">
                                             { createdBy && (
-                                                <span className="badge bg-primary">{createdBy}</span>
+                                                <span className="badge bg-success">{createdBy}</span>
                                             )}
                                         </div>
                                         <div className="col-6 d-flex flex-row-reverse">
@@ -68,8 +68,8 @@ const Articles = () => {
                                         </div>
                                     </div>
                                     <h3>{title}</h3>
-                                    <p>{createdAt.toDate().toDateString()}</p>
-                                    <h6>{description}</h6>
+                                    <h6>{createdAt.toDate().toDateString()}</h6>
+                                    <p className="mt-3">{description}</p>
                                     <div className="d-flex flex-row-reverse">
                                         { user && <LikeArticle id={id} likes={likes} />}
                                         <div className="pe-2">

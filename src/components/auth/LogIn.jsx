@@ -23,7 +23,7 @@ const LogIn = () => {
     return (
         
         <div 
-            className="border p-3 bg-light mx-auto"
+            className="border p-3 mx-auto"
             style={{ maxWidth: 400, marginTop: 60 }}
         >
             <h1>Log In</h1>

@@ -20,7 +20,7 @@ const Article = () => {
     }, [])
 
     return (
-        <div className="container border bg-light" style={{ marginTop: 70 }}>
+        <div className="container border" style={{ marginTop: 70 }}>
             {
                 article && (
                     <div className="row">

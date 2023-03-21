@@ -9,12 +9,20 @@ const NavBar = () => {
     const [user] = useAuthState(auth)
 
     return (
-        <div className="fixed-top border" style={{ backgroundColor: "whitesmoke" }}>
+        <div className="fixed-top" style={{ backgroundColor: "white" }}>
             <nav className="navbar">
                 <div>
-                    <img src="logo192.png" width={30} height={30} alt="logo" />
+                    <Link className="nav-link" to="/">
+                        <img 
+                            src="4rest-logo.jpg" 
+                            height={30} 
+                            alt="logo"
+                            style={{
+                                marginLeft: "10px"
+                            }}
+                        />
+                    </Link>
                 </div>
-                <Link className="nav-link" to="/">Home</Link>
                 <div>
                     {
                         user && (
@@ -23,7 +31,7 @@ const NavBar = () => {
                                     signed in as { user.displayName || user.email }
                                 </span>
                                 <button 
-                                    className="btn btn-primary btn-sm me-3"
+                                    className="btn btn-success btn-sm me-3"
                                     onClick={() => {signOut(auth)}}
                                 >
                                     Log Out
