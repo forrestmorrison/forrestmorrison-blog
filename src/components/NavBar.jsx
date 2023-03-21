@@ -27,7 +27,7 @@ const NavBar = () => {
                                 marginLeft: "10px"
                             }}
                         />
-                    </Link>
+                    </Link>   
                 </div>
                 <div>
                     {
